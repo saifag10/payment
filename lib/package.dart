@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:remedium/package.dart';
+import 'package:remedium/creditCard.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:remedium/signin.dart';
+import 'easypaisa.dart';
 
-import 'patient_sign_in.dart';
-import 'doctor_sign_in.dart';
-
-class signin extends StatelessWidget {
+class package extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -66,17 +66,33 @@ class _MyHomePageState extends State<MyHomePage> {
         child: new Container(
           padding: new EdgeInsets.only(top: MediaQuery.of(context).padding.top),
           child: new Padding(
-            padding: const EdgeInsets.only(left: 30.0, top: 20.0, bottom: 20.0),
-            child: Center(
-              child: new Text(
-                'Welcome to Remedium',
-                style: new TextStyle(
-                    fontSize: 23.0,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white),
-              ),
-            ),
-          ),
+              padding:
+                  const EdgeInsets.only(left: 30.0, top: 20.0, bottom: 20.0),
+              child: Row(
+                children: [
+                  IconButton(
+                      icon: Icon(
+                        Icons.arrow_back,
+                        color: CupertinoColors.white,
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => signin()),
+                        );
+                      }),
+                  Column(
+                    children: [
+                      Text("Payment Method Selection                     ",
+                          style: TextStyle(
+                              fontSize: 20, color: CupertinoColors.white)),
+                      Text(" Below are the avaiable payment Options.",
+                          style:
+                              TextStyle(fontSize: 13, color: Colors.white70)),
+                    ],
+                  ),
+                ],
+              )),
           decoration: new BoxDecoration(color: Color(0xFF202125), boxShadow: [
             new BoxShadow(
               color: Colors.blue,
@@ -95,22 +111,22 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Center(
           child: Column(
             children: [
-              Text(greetings, style: TextStyle(fontSize: 23.0)),
-              SizedBox(
-                height: 120,
-              ),
               Expanded(
                   flex: 1,
                   child: Center(
                     child: Container(
                         height: 25,
                         child: Text(
-                          "SIGN IN AS",
-                          style: TextStyle(fontSize: 25, color: Colors.white),
+                          "Select if you want to pay by Credit Card or Easypaisa ",
+                          style: TextStyle(
+                              fontSize: 19,
+                              color: Colors.white,
+                              fontStyle: FontStyle.italic,
+                              fontWeight: FontWeight.bold),
                         )),
                   )),
               Expanded(
-                flex: 3,
+                flex: 2,
                 child: Container(
                   child: Column(
                     children: [
@@ -121,12 +137,12 @@ class _MyHomePageState extends State<MyHomePage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => doctor_sign_in()),
+                                  builder: (context) => credit_card()),
                             );
                           },
                           color: Color(0xFF3C4043),
                           padding: EdgeInsets.fromLTRB(80, 20, 80, 20),
-                          child: Text("Doctor",
+                          child: Text("Credit Card Payment method",
                               style: TextStyle(color: Colors.white))),
                       SizedBox(
                         height: 20,
@@ -140,28 +156,14 @@ class _MyHomePageState extends State<MyHomePage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => patient_sign_in()),
+                                  builder: (context) => easypaisa()),
                             );
                           },
-                          child: Text("Patient",
+                          child: Text("Easypaisa Payment method",
                               style: TextStyle(color: Colors.white))),
                       SizedBox(
                         height: 20,
                       ),
-                      RaisedButton(
-                          color: Color(0xFF3C4043),
-                          padding: EdgeInsets.fromLTRB(80, 20, 80, 20),
-                          shape: new RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(30.0)),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => package()),
-                            );
-                          },
-                          child: Text("Chatbot",
-                              style: TextStyle(color: Colors.white))),
                     ],
                   ),
                 ),

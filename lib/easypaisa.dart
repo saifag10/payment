@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:remedium/package.dart';
-
-import 'patient_sign_in.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:remedium/signin.dart';
+import 'easypaisa.dart';
+import 'dart:convert';
+//import 'package:firebase_core/firebase_core.dart';
+import 'package:remedium/patient_sign_in.dart';
+import 'package:http/http.dart' as http;
+//import 'consultation.dart';
 import 'doctor_sign_in.dart';
 
-class signin extends StatelessWidget {
+class easypaisa extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -66,17 +72,33 @@ class _MyHomePageState extends State<MyHomePage> {
         child: new Container(
           padding: new EdgeInsets.only(top: MediaQuery.of(context).padding.top),
           child: new Padding(
-            padding: const EdgeInsets.only(left: 30.0, top: 20.0, bottom: 20.0),
-            child: Center(
-              child: new Text(
-                'Welcome to Remedium',
-                style: new TextStyle(
-                    fontSize: 23.0,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white),
-              ),
-            ),
-          ),
+              padding:
+                  const EdgeInsets.only(left: 30.0, top: 20.0, bottom: 20.0),
+              child: Row(
+                children: [
+                  IconButton(
+                      icon: Icon(
+                        Icons.arrow_back,
+                        color: CupertinoColors.white,
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => package()),
+                        );
+                      }),
+                  Column(
+                    children: [
+                      Text("Billing Through Mobile Carrier                   ",
+                          style: TextStyle(
+                              fontSize: 20, color: CupertinoColors.white)),
+                      Text(" Enter Your Mobile number below",
+                          style:
+                              TextStyle(fontSize: 13, color: Colors.white70)),
+                    ],
+                  ),
+                ],
+              )),
           decoration: new BoxDecoration(color: Color(0xFF202125), boxShadow: [
             new BoxShadow(
               color: Colors.blue,
@@ -97,16 +119,16 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               Text(greetings, style: TextStyle(fontSize: 23.0)),
               SizedBox(
-                height: 120,
+                height: 70,
               ),
               Expanded(
                   flex: 1,
                   child: Center(
                     child: Container(
-                        height: 25,
+                        height: 55,
                         child: Text(
-                          "SIGN IN AS",
-                          style: TextStyle(fontSize: 25, color: Colors.white),
+                          "To start your membership, we'll text a code to verify \nyour number for payment. SMS fees may apply",
+                          style: TextStyle(fontSize: 19, color: Colors.white),
                         )),
                   )),
               Expanded(
@@ -114,54 +136,40 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Container(
                   child: Column(
                     children: [
-                      RaisedButton(
-                          shape: new RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(30.0)),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => doctor_sign_in()),
-                            );
-                          },
-                          color: Color(0xFF3C4043),
-                          padding: EdgeInsets.fromLTRB(80, 20, 80, 20),
-                          child: Text("Doctor",
-                              style: TextStyle(color: Colors.white))),
-                      SizedBox(
-                        height: 20,
+                      Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: TextField(
+                          style: TextStyle(color: Colors.white),
+                          decoration: new InputDecoration(
+                            border: new OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(
+                                const Radius.circular(50.0),
+                              ),
+                            ),
+                            filled: true,
+                            hintStyle: new TextStyle(color: Color(0XFFDCDDE1)),
+                            hintText: "Postpaid Mobile Number",
+                            fillColor: Color(0xFF3C4043),
+                          ),
+                        ),
                       ),
-                      RaisedButton(
-                          color: Color(0xFF3C4043),
-                          padding: EdgeInsets.fromLTRB(80, 20, 80, 20),
-                          shape: new RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(30.0)),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => patient_sign_in()),
-                            );
-                          },
-                          child: Text("Patient",
-                              style: TextStyle(color: Colors.white))),
-                      SizedBox(
-                        height: 20,
+                      Container(
+                          height: 55,
+                          child: Text(
+                            " Rs1,500/month  ",
+                            style: TextStyle(
+                                fontSize: 19,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500),
+                          )),
+                      Container(
+                        child: RaisedButton(
+                            padding: EdgeInsets.fromLTRB(80, 20, 80, 20),
+                            shape: new RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(30.0)),
+                            child: Text(" Send Code",
+                                style: TextStyle(color: Colors.white))),
                       ),
-                      RaisedButton(
-                          color: Color(0xFF3C4043),
-                          padding: EdgeInsets.fromLTRB(80, 20, 80, 20),
-                          shape: new RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(30.0)),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => package()),
-                            );
-                          },
-                          child: Text("Chatbot",
-                              style: TextStyle(color: Colors.white))),
                     ],
                   ),
                 ),

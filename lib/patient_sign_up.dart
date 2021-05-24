@@ -1,6 +1,8 @@
 import 'dart:io';
+import 'package.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,7 @@ import 'dart:math';
 
 final _firestore = Firestore.instance;
 FirebaseStorage _storage = FirebaseStorage.instance;
+
 class patient_sign_up extends StatefulWidget {
   @override
   _doctor_sign_upState createState() => _doctor_sign_upState();
@@ -479,22 +482,22 @@ class _doctor_sign_upState extends State<patient_sign_up> {
                     shape: new RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(30.0)),
                     onPressed: () async {
-                      StorageReference reference = _storage.ref().child("patient_profile/${email}");
+                      StorageReference reference =
+                          _storage.ref().child("patient_profile/${email}");
 
                       //Upload the file to firebase
                       StorageUploadTask uploadTask = reference.putFile(_image);
-                      String docUrl = await (await uploadTask.onComplete).ref.getDownloadURL();
-
-
+                      String docUrl = await (await uploadTask.onComplete)
+                          .ref
+                          .getDownloadURL();
 
                       Random random = new Random();
                       int random_number = random.nextInt(100);
 
-
                       try {
                         final newUser =
-                        await _auth.createUserWithEmailAndPassword(
-                            email: email, password: password);
+                            await _auth.createUserWithEmailAndPassword(
+                                email: email, password: password);
                         _firestore.collection('Patient').add({
                           'first_name': first_name,
                           'email': email,
@@ -511,12 +514,10 @@ class _doctor_sign_upState extends State<patient_sign_up> {
                           'patient_id': newUser.uid,
                         });
 
-
                         if (newUser != null)
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => patient_inventory()),
+                            MaterialPageRoute(builder: (context) => package()),
                           );
                       } catch (e) {
                         print(e);
